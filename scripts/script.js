@@ -1,14 +1,14 @@
-// // Exercise 2
+// //Exercise 2
 // const myButton = document.querySelector(".button");
 // console.log(myButton);
 
 // //Exercise 3
 // myButton.style.backgroundColor = "blue";
 // myButton.addEventListener("click", function(){
-//     alert("Something")
+//     alert("PERIGO")
 // })
 
-// Exercise 4
+// //Exercise 4
 // const myTodo = document.querySelector("#new-todo");
 // myTodo.addEventListener("submit", (e) => {
 //     e.preventDefault()
@@ -16,7 +16,9 @@
 //     console.log(text)
 // });
 
-//error
+// another solution
+// const myTodo = document.querySelector("#new-todo");
+// myTodo.addEventListener('submit', addValue)
 // function addValue(e){
 //     e.preventDefault()
 //     const text = e.target.elements.text.value.trim()
@@ -24,24 +26,29 @@
 // }
 
 // //Exercise 5
-// const todos = []
-// function createTodo(text) {
-//     todos.push(text)
-// }
+const todos = []
+function createTodo(text) {
+    todos.push(text)
+}
 
-// document.querySelector('#new-todo').addEventListener('submit', (e) => {
-//     e.preventDefault()
-//     const text = e.target.elements.text.value.trim()
+const myTodo = document.querySelector("#new-todo");
+myTodo.addEventListener('submit', addValue)
+function addValue(e){
+    e.preventDefault()
+    const text = e.target.elements.text.value.trim()
+    
+    if (text.length > 0) {
+        createTodo(text)
+        e.target.elements.text.value = ''
+    }
 
-//     if (text.length > 0) {
-//         createTodo(text)
-//         e.target.elements.text.value = ''
-//     }
+    // console.log(todos)
+    renderTodos()
+}
 
-//     console.log(todos)
-// })
 
 //Exercise 6
+
 function generateTodoDOM(todo) {
     const todoEl = document.createElement('label')
     const containerEl = document.createElement('div')
@@ -56,3 +63,35 @@ function generateTodoDOM(todo) {
 
     return todoEl
 }
+
+// //Exercise 7
+
+function renderTodos(todos) {
+    const todoList = document.querySelector('#todos')
+    todoList.innerHTML = ''
+
+    todos.forEach((todo) => {
+        todoList.appendChild(generateTodoDOM(todo))
+    });
+}
+
+// // //Exercise 8
+// // function renderTodos(todos) {
+// //     if (todos.length > 0) {
+// //         todos.forEach((todo) => {
+// //             todoList.appendChild(generateTodoDOM(todo))
+// //         });
+// //     } else {
+// //         const messageEl = document.createElement('p')
+// //         messageEl.classList.add('empty-message')
+// //         messageEl.documentElement.textContent = 'There are no todos to show'
+// //         todoList.appendChild(messageEl)
+// //     }
+// // }
+
+// // renderTodos(todos)
+
+// // //Exercise 9
+// function removeTodo(todoEl) {
+//     const todoIndex = todos.findIndex(todoEl)
+// }
