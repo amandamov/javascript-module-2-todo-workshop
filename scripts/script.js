@@ -43,16 +43,31 @@ function addValue(e){
     }
 
     // console.log(todos)
-    renderTodos()
+    renderTodos(todos)
 }
 
 
 //Exercise 6
 
 function generateTodoDOM(todo) {
+
     const todoEl = document.createElement('label')
     const containerEl = document.createElement('div')
     const todoText = document.createElement('span')
+
+    //ex. 10 -->:
+    const removeButton = document.createElement('button')
+    removeButton.textContent = 'Remove'
+    removeButton.classList.add('button')
+    removeButton.classList.add('button--text')
+    todoEl.appendChild(removeButton)
+    removeButton.addEventListener('click', () => {
+        removeTodo(todoText)
+        renderTodos(todos)
+    })
+    //ex. 10 <--
+
+    
 
     todoText.textContent = todo
     containerEl.appendChild(todoText)
@@ -66,32 +81,41 @@ function generateTodoDOM(todo) {
 
 // //Exercise 7
 
+// function renderTodos(todos) {
+//     const todoList = document.querySelector('#todos')
+//     todoList.innerHTML = ''
+
+//     todos.forEach((todo) => {
+//         todoList.appendChild(generateTodoDOM(todo))
+//     });
+// }
+
+//Exercise 8
 function renderTodos(todos) {
     const todoList = document.querySelector('#todos')
     todoList.innerHTML = ''
-
-    todos.forEach((todo) => {
-        todoList.appendChild(generateTodoDOM(todo))
-    });
+    if (todos.length > 0) {
+        todos.forEach((todo) => {
+            todoList.appendChild(generateTodoDOM(todo))
+        });
+    } else {
+        const messageEl = document.createElement('p')
+        messageEl.classList.add('empty-message')
+        messageEl.textContent = 'There are no todos to show'
+        todoList.appendChild(messageEl)
+    }
 }
 
-// // //Exercise 8
-// // function renderTodos(todos) {
-// //     if (todos.length > 0) {
-// //         todos.forEach((todo) => {
-// //             todoList.appendChild(generateTodoDOM(todo))
-// //         });
-// //     } else {
-// //         const messageEl = document.createElement('p')
-// //         messageEl.classList.add('empty-message')
-// //         messageEl.documentElement.textContent = 'There are no todos to show'
-// //         todoList.appendChild(messageEl)
-// //     }
-// // }
+// //Exercise 9 and 10
 
-// // renderTodos(todos)
+function removeTodo(todoEl) {
+   const todoIndex = todos.findIndex((todo) => {
+        return todo.toLowerCase() === todoEl.textContent.toLowerCase()})
 
-// // //Exercise 9
-// function removeTodo(todoEl) {
-//     const todoIndex = todos.findIndex(todoEl)
-// }
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
+}
+
+
+
